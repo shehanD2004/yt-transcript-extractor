@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube Transcript Generator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<!-- Navigation Header -->
+<header class="header">
+  <div class="container nav-container">
+    <div class="logo">
+      <img src="images/yt-logo-black.png" alt="YouTube Transcript Generator Logo">
+    </div>
+    <nav class="navigation">
+      <ul class="nav-list">
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#use-cases">Use Cases</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero Section -->
+<main>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <h1>Turn YouTube Videos into <span>Transcripts Instantly</span></h1>
+        <p class="subtitle">Easily convert YouTube videos to transcripts. Copy and download with one click.</p>
+
+        <div class="input-group">
+          <input type="url" id="videoUrl" placeholder="Paste YouTube video URL here" aria-label="YouTube video URL">
+          <button class="btn-primary" id="getTranscriptBtn">Get Transcript</button>
+        </div>
+
+        <div class="action-buttons">
+          <button class="btn-secondary">Bulk Extract</button>
+          <button class="btn-secondary">Extract Channel ID</button>
+        </div>
+
+        <div class="trust-badges">
+          <span class="badge">✅ ScamAdvisor Verified</span>
+          <span class="badge">🌍 357k+ Users Worldwide</span>
+          <span class="badge">🔒 SSL Secured</span>
+        </div>
+      </div>
+
+      <div class="hero-image">
+        <img src="images/front-pic.jpeg" alt="Transcript generator interface preview">
+      </div>
+    </div>
+  </section>
+
+  <!-- Transcript Display Section -->
+  <section id="transcript-section" class="transcript-section" style="display: none;">
+    <div class="container">
+      <div class="transcript-header">
+        <h2>Transcript</h2>
+        <div class="transcript-actions">
+          <button class="btn-secondary" id="copyTranscriptBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+            </svg>
+            Copy Text
+          </button>
+          <button class="btn-secondary" id="downloadTranscriptBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+            </svg>
+            Download TXT
+          </button>
+        </div>
+      </div>
+      <div class="video-info" id="videoInfo">
+        <h3 id="videoTitle">Video Title</h3>
+        <span class="video-id" id="videoId">Video ID: </span>
+      </div>
+      <div class="transcript-container">
+        <div class="transcript-content" id="transcriptContent">
+          <!-- Transcript will be displayed here -->
+        </div>
+      </div>
+      <div class="loading-spinner" id="loadingSpinner" style="display: none;">
+        <div class="spinner"></div>
+        <p>Extracting transcript...</p>
+      </div>
+      <div class="error-message" id="errorMessage" style="display: none;">
+        <!-- Error messages will be displayed here -->
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section id="how-it-works" class="section how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <h2>How It Works</h2>
+        <p class="section-description">Convert videos to text in three simple steps</p>
+      </div>
+      <div class="steps-container">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Paste Video Link</h3>
+            <p>Simply paste the YouTube video URL into the input field above</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Generate Transcript</h3>
+            <p>Click "Extract Transcript" to convert the video into text</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Download or Copy</h3>
+            <p>Download the transcript with timestamps or copy it to clipboard</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="section features">
+    <div class="container">
+      <div class="section-header">
+        <h2>Powerful Features</h2>
+        <p class="section-description">Everything you need for perfect YouTube transcripts</p>
+      </div>
+      <div class="features-grid">
+        <!-- Feature 1 -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#4285F4">
+              <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+            </svg>
+          </div>
+          <h3>Timestamps Included</h3>
+          <p>Get accurate timestamps every 30 seconds to easily navigate the video content.</p>
+        </div>
+        <!-- Feature 2 -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#4285F4">
+              <path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/>
+            </svg>
+          </div>
+          <h3>Multiple Formats</h3>
+          <p>Download in TXT, PDF, or DOCX formats for subtitles, research, or content creation.</p>
+        </div>
+        <!-- Feature 3 -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#4285F4">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+            </svg>
+          </div>
+          <h3>Bulk Processing</h3>
+          <p>Generate transcripts for multiple videos at once with our batch processing tool.</p>
+        </div>
+        <!-- Feature 4 -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#4285F4">
+              <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zm1-11h-2v3H8v2h3v3h2v-3h3v-2h-3V8z"/>
+            </svg>
+          </div>
+          <h3>Speaker Detection</h3>
+          <p>Automatically identifies different speakers in interviews and podcasts.</p>
+        </div>
+        <!-- Feature 5 -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#4285F4">
+              <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4zM14 13h-3v3H9v-3H6v-2h3V8h2v3h3v2z"/>
+            </svg>
+          </div>
+          <h3>Video Summarization</h3>
+          <p>Get AI-powered summaries of long videos to save reading time.</p>
+        </div>
+        <!-- Feature 6 -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#4285F4">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-8.86c-1.77-.45-2.34-.94-2.34-1.67 0-.84.79-1.43 2.1-1.43 1.38 0 1.9.66 1.94 1.64h1.71c-.05-1.34-.87-2.57-2.49-2.97V5H10.9v1.69c-1.51.32-2.72 1.3-2.72 2.81 0 1.79 1.49 2.69 3.66 3.21 1.95.46 2.34 1.15 2.34 1.87 0 .53-.39 1.39-2.1 1.39-1.6 0-2.23-.72-2.32-1.64H8.04c.1 1.7 1.36 2.66 2.86 2.97V19h2.34v-1.67c1.52-.29 2.72-1.16 2.73-2.77-.01-2.2-1.9-2.96-3.66-3.42z"/>
+            </svg>
+          </div>
+          <h3>Multi-language Support</h3>
+          <p>Supports 50+ languages including auto-detection of video language.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Use Cases Section -->
+  <section id="use-cases" class="section use-cases">
+    <div class="container">
+      <div class="section-header">
+        <h2>Use Cases</h2>
+        <p class="section-description">Who can benefit from our transcript generator</p>
+      </div>
+      <div class="use-cases-grid">
+        <div class="use-case-card">
+          <h3>Content Creators</h3>
+          <p>Repurpose video content into blog posts, social media captions, and articles.</p>
+        </div>
+        <div class="use-case-card">
+          <h3>Students & Researchers</h3>
+          <p>Take notes from educational videos and lectures more efficiently.</p>
+        </div>
+        <div class="use-case-card">
+          <h3>Journalists</h3>
+          <p>Quickly extract quotes and information from video interviews.</p>
+        </div>
+        <div class="use-case-card">
+          <h3>Accessibility</h3>
+          <p>Create subtitles and make content accessible for hearing-impaired viewers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" class="section faq">
+    <div class="container">
+      <div class="section-header">
+        <h2>Frequently Asked Questions</h2>
+        <p class="section-description">Get answers to common questions about our service</p>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <h3>Is this service free?</h3>
+          <p>Yes, our basic transcript extraction is completely free. We may introduce premium features in the future.</p>
+        </div>
+        <div class="faq-item">
+          <h3>What video formats are supported?</h3>
+          <p>We currently support YouTube videos. Other platforms may be added in the future.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How accurate are the transcripts?</h3>
+          <p>Accuracy depends on video audio quality. Clear audio typically results in 85-95% accuracy.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Footer Section -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <p>&copy; 2024 YouTube Transcript Generator. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>
