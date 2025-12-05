@@ -789,3 +789,65 @@ img {
 html {
   scroll-behavior: smooth;
 }
+
+/* Video Info Styling */
+.video-meta {
+  display: flex;
+  gap: 20px;
+  margin: 15px 0;
+  flex-wrap: wrap;
+}
+
+.video-meta span {
+  background: #f0f0f0;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.video-id {
+  background: #e3f2fd;
+  padding: 8px 15px;
+  border-radius: 5px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  margin: 10px 0;
+}
+
+.warning-note {
+  background: #fff3cd;
+  border: 1px solid #ffeaa7;
+  border-radius: 5px;
+  padding: 10px 15px;
+  margin: 15px 0;
+  color: #856404;
+}
+
+/* Caption Display */
+.caption-line {
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  gap: 15px;
+}
+
+.caption-line:last-child {
+  border-bottom: none;
+}
+
+.timestamp {
+  color: #4285f4;
+  font-weight: bold;
+  min-width: 60px;
+  font-family: 'Courier New', monospace;
+}
+
+.caption-text {
+  flex: 1;
+}
+
+.plain-transcript {
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
