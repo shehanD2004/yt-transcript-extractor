@@ -155,6 +155,130 @@ class TranscriptExtractor {
             document.body.removeChild(messageEl);
         }, 3000);
     }
+    async extractTranscript() {
+        const videoUrl = document.getElementById('videoUrl').value.trim();
+        const transcriptSection = document.getElementById('transcript-section');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const errorMessage = document.getElementById('errorMessage');
+        const transcriptContent = document.getElementById('transcriptContent');
+        const videoTitle = document.getElementById('videoTitle');
+        const videoId = document.getElementById('videoId');
+        const videoInfo = document.getElementById('videoInfo');
+
+        // Reset states
+        errorMessage.style.display = 'none';
+        transcriptSection.style.display = 'none';
+        videoInfo.innerHTML = '';
+
+        // Validate URL
+        if (!this.isValidYouTubeUrl(videoUrl)) {
+            this.showError('Please enter a valid YouTube URL');
+            return;
+        }
+
+        // Show loading
+        loadingSpinner.style.display = 'block';
+
+        try {
+            const response = await fetch(`${this.apiBaseUrl}/extract`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ url: videoUrl })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Failed to extract transcript');
+            }
+
+            if (data.error) {
+                throw new Error(data.error);
+            }
+
+            // Build rich video info display
+            let videoInfoHTML = `
+                <h3>${data.title || 'Untitled Video'}</h3>
+                <div class="video-meta">
+            `;
+
+            if (data.channelTitle) {
+                videoInfoHTML += `<span class="channel">📺 ${data.channelTitle}</span>`;
+            }
+
+            if (data.duration) {
+                videoInfoHTML += `<span class="duration">⏱️ ${this.formatDuration(data.duration)}</span>`;
+            }
+
+            if (data.publishedAt) {
+                videoInfoHTML += `<span class="published">📅 ${new Date(data.publishedAt).toLocaleDateString()}</span>`;
+            }
+
+            videoInfoHTML += `</div>`;
+
+            if (data.videoId) {
+                videoInfoHTML += `<div class="video-id">🎬 Video ID: ${data.videoId}</div>`;
+            }
+
+            if (data.warning) {
+                videoInfoHTML += `<div class="warning-note">⚠️ ${data.warning}</div>`;
+            }
+
+            videoInfo.innerHTML = videoInfoHTML;
+
+            // Display transcript
+            let transcriptHTML = '';
+
+            if (data.captions && data.captions.length > 0) {
+                // Display structured captions with timestamps
+                data.captions.forEach((caption, index) => {
+                    transcriptHTML += `
+                        <div class="caption-line">
+                            <span class="timestamp">${caption.start || ''}</span>
+                            <span class="caption-text">${caption.text}</span>
+                        </div>
+                    `;
+                });
+            } else {
+                // Display plain text transcript
+                transcriptHTML = `<div class="plain-transcript">${data.transcript.replace(/\n/g, '<br>')}</div>`;
+            }
+
+            transcriptContent.innerHTML = transcriptHTML;
+
+            // Show transcript section
+            transcriptSection.style.display = 'block';
+
+            // Smooth scroll to transcript
+            transcriptSection.scrollIntoView({ behavior: 'smooth' });
+
+        } catch (error) {
+            this.showError(error.message);
+        } finally {
+            loadingSpinner.style.display = 'none';
+        }
+    }
+
+    formatDuration(isoDuration) {
+        // Convert ISO 8601 duration to readable format
+        try {
+            const match = isoDuration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
+            const hours = (match[1] || '').replace('H', '');
+            const minutes = (match[2] || '').replace('M', '');
+            const seconds = (match[3] || '').replace('S', '');
+
+            let result = '';
+            if (hours) result += `${hours}h `;
+            if (minutes) result += `${minutes}m `;
+            if (seconds) result += `${seconds}s`;
+
+            return result.trim();
+        } catch (e) {
+            return isoDuration;
+        }
+    }
 }
 
 // Initialize the application when DOM is loaded
